@@ -6,9 +6,6 @@
     "plugin:tailwindcss/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "plugins": ["@typescript-eslint", "tailwindcss"],
   "globals": {
     "React": "readonly"
