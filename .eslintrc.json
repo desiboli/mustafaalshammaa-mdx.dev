@@ -1,6 +1,35 @@
 {
-  "extends": "next/core-web-vitals",
+  "root": true,
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:tailwindcss/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "tailwindcss"],
+  "globals": {
+    "React": "readonly"
+  },
+  "ignorePatterns": ["**/components/ui/*.tsx", "**/components/ui/*.ts"],
   "rules": {
-    "react/no-unescaped-entities": "off"
-  }
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/classnames-order": "error"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser"
+    }
+  ]
 }

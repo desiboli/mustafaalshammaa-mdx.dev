@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { ModeToggle } from "@/components/ModeToggle";
+import Link from "next/link"
+
+import { ModeToggle } from "@/components/ModeToggle"
 
 export default function Navbar() {
   const routes = [
@@ -27,13 +28,13 @@ export default function Navbar() {
       label: "Guestbook",
       href: "/guestbook",
     },
-  ];
+  ]
 
   return (
-    <header className="bg-neutral-100/80 dark:bg-neutral-900/80 backdrop-blur-sm py-4 sticky top-0 drop-shadow-md z-10">
-      <nav className="flex flex-row-reverse items-center justify-between container">
+    <header className="sticky top-0 z-10 bg-neutral-100/80 py-4 drop-shadow-md backdrop-blur-sm dark:bg-neutral-900/80">
+      <nav className="container flex flex-row-reverse items-center justify-between">
         <ModeToggle />
-        <div className="flex flex-row justify-center sm:justify-evenly align-middle gap-4">
+        <div className="flex flex-row justify-center gap-4 align-middle sm:justify-evenly">
           {routes.map((route) => {
             return (
               <Link
@@ -43,10 +44,10 @@ export default function Navbar() {
               >
                 {route.label}
               </Link>
-            );
+            )
           })}
         </div>
       </nav>
     </header>
-  );
+  )
 }

@@ -1,13 +1,14 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Image from "next/image"
+
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
     <>
       <section>
-        <div className="flex flex-col lg:flex-row justify-between gap-10">
+        <div className="flex flex-col justify-between gap-10 lg:flex-row">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold mb-4">Hey! I'm Musse</h1>
+            <h1 className="mb-4 text-2xl font-bold">Hey! I'm Musse</h1>
             <p>
               My name is Mustafa Alshammaa, a Senior Frontend Developer and the
               Co-founder of{" "}
@@ -21,7 +22,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="relative w-64 h-64 max-w-full rounded-xl overflow-hidden">
+          <div className="relative h-64 w-64 max-w-full overflow-hidden rounded-xl">
             <Image
               src="/me.jpg"
               alt="Me"
@@ -33,5 +34,5 @@ export default function Home() {
         </div>
       </section>
     </>
-  );
+  )
 }
