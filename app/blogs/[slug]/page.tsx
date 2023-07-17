@@ -2,6 +2,9 @@ import fs from "fs"
 import path from "path"
 import { Suspense } from "react"
 import { MDXRemote } from "next-mdx-remote/rsc"
+import rehypeHighlight from "rehype-highlight"
+
+import "@/styles/highlight-js/github-dark.css"
 
 import { getPost } from "@/lib/api"
 import { Button, type ButtonProps } from "@/components/ui/button"
@@ -28,6 +31,13 @@ export async function generateStaticParams() {
   return paths
 }
 
+const options = {
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypeHighlight],
+  },
+}
+
 export default function Post({ params }: any) {
   const props = getPost(params)
 
@@ -39,6 +49,7 @@ export default function Post({ params }: any) {
         {...props}
         source={props.content}
         components={{ ...components }}
+        options={options}
       />
     </article>
   )
