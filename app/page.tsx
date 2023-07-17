@@ -1,6 +1,7 @@
 import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
+import BlogPreviewList from "@/components/BlogPreviewList"
 
 export default function Home() {
   return (
@@ -32,6 +33,10 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      <section>
+        <BlogPreviewList />
       </section>
     </>
   )
