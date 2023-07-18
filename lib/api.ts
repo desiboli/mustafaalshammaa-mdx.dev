@@ -5,6 +5,7 @@ import matter from "gray-matter"
 export interface Blog {
   meta: BlogMeta
   slug: string
+  content: string
 }
 
 export interface BlogMeta {
@@ -15,41 +16,66 @@ export interface BlogMeta {
   image?: string | string[]
 }
 
-export function getPost({ slug }: { slug: string }) {
-  const markdownFile = fs.readFileSync(
-    path.join("blogs", slug + ".mdx"),
-    "utf-8"
-  )
+// CONSTANTS
+const blogDir = "blogs"
 
-  const { data: frontMatter, content } = matter(markdownFile)
+const getBlogFiles = () =>
+  fs.readdirSync(path.join(blogDir)).filter((x) => {
+    const y = x.split(".")
+    return y[y.length - 1] === "mdx"
+  })
 
-  return {
-    frontMatter,
-    slug,
-    content,
+const readBlogFile = (filename: string) => {
+  try {
+    return fs.readFileSync(path.join(blogDir, filename), "utf-8")
+  } catch {
+    return null
   }
 }
 
-export function getPostsPreview() {
-  // 1) Set blogs directory
-  const blogDir = "blogs"
+const getSlugFromFileName = (filename: string) => filename.replace(".mdx", "")
 
-  // 2) Find all files in the blog directory
-  const files = fs.readdirSync(path.join(blogDir))
+const getFileNameFromSlug = (slug: string) => slug + ".mdx"
 
-  // 3) For each blog found
+const cleanMetaFromMatter = (meta: { [key: string]: any }): BlogMeta => {
+  return {
+    ...meta,
+    author: meta.author ?? "Mustafa Alshammaa",
+    date: new Date(meta.date) ?? null,
+  }
+}
+
+const getBlogFromFile = (filename: string): Blog | null => {
+  const file = readBlogFile(filename)
+  if (file == null) {
+    return null
+  }
+
+  const { data, content } = matter(file)
+  const slug = getSlugFromFileName(filename)
+
+  const meta = cleanMetaFromMatter(data)
+
+  return { meta, slug, content }
+}
+
+/*
+ * Get a single blog post
+ */
+export function getBlog(slug: string): Blog | null {
+  const filename = getFileNameFromSlug(slug)
+
+  return getBlogFromFile(filename)
+}
+
+/*
+ * Get all blog posts
+ */
+export function getPosts() {
+  const files = getBlogFiles()
+
   const blogs = files.map((filename) => {
-    // 4) Read the content of that blog
-    const fileContent = fs.readFileSync(path.join(blogDir, filename), "utf-8")
-
-    // 5) Extract the metadata from the blog's content
-    const { data: frontMatter } = matter(fileContent)
-
-    // 6) Return the metadata and page slug
-    return {
-      meta: frontMatter,
-      slug: filename.replace(".mdx", ""),
-    }
+    return getBlogFromFile(filename)
   })
 
   return filterNewToOld(blogs)

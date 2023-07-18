@@ -1,9 +1,12 @@
 import Image from "next/image"
 
+import { getPosts } from "@/lib/api"
 import { Button } from "@/components/ui/button"
 import BlogPreviewList from "@/components/BlogPreviewList"
 
 export default function Home() {
+  const blogs = getPosts()
+
   return (
     <>
       <section>
@@ -36,7 +39,11 @@ export default function Home() {
       </section>
 
       <section>
-        <BlogPreviewList />
+        <div className="flex flex-col gap-4 py-4">
+          {blogs.map(
+            (blog, index) => blog && <BlogPreviewList key={index} blog={blog} />
+          )}
+        </div>
       </section>
     </>
   )

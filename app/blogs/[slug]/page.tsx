@@ -1,23 +1,28 @@
 import fs from "fs"
 import path from "path"
 import { Suspense } from "react"
+import { notFound } from "next/navigation"
 import { MDXRemote } from "next-mdx-remote/rsc"
 import rehypeHighlight from "rehype-highlight"
 
 import "@/styles/highlight-js/github-dark.css"
 
-import { getPost } from "@/lib/api"
+import { getBlog } from "@/lib/api"
 import { Button, type ButtonProps } from "@/components/ui/button"
 
 const components = {
   Button: (props: ButtonProps) => <Button {...props}>{props.children}</Button>,
 }
+
 export async function generateMetadata({ params }: any) {
-  const blog = getPost(params)
+  const blog = getBlog(params)
 
   return {
-    title: blog.frontMatter.title,
-    description: blog.frontMatter.description,
+    title: blog?.meta?.title,
+    description: blog?.meta?.description,
+    openGraph: {
+      type: "article",
+    },
   }
 }
 
@@ -39,15 +44,18 @@ const options = {
 }
 
 export default function Post({ params }: any) {
-  const props = getPost(params)
+  const blog = getBlog(params.slug)
+
+  if (!blog) {
+    return notFound
+  }
 
   return (
     <article className="prose prose-sm !prose-invert prose-neutral mx-auto md:prose-base lg:prose-lg">
-      <h1>{props.frontMatter.title}</h1>
+      <h1>{blog.meta.title}</h1>
 
       <MDXRemote
-        {...props}
-        source={props.content}
+        source={blog.content}
         components={{ ...components }}
         options={options}
       />
