@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { getPosts } from "@/lib/api"
 import { Button } from "@/components/ui/button"
@@ -39,11 +40,41 @@ export default function Home() {
       </section>
 
       <section>
+        <h1 className="mb-4 text-2xl font-bold">Recent Notes</h1>
+
         <div className="flex flex-col gap-4 py-4">
           {blogs.map(
             (blog, index) => blog && <BlogPreviewList key={index} blog={blog} />
           )}
         </div>
+
+        <Button variant="link" className="px-0" asChild>
+          <Link href="/notes">All Notes</Link>
+        </Button>
+      </section>
+
+      <section>
+        <h1 className="mb-4 text-2xl font-bold">Recent Projects</h1>
+
+        <div className="flex flex-col gap-4 py-4">
+          {blogs.map(
+            (blog, index) => blog && <BlogPreviewList key={index} blog={blog} />
+          )}
+        </div>
+
+        <Button variant="link" className="px-0" asChild>
+          <Link href="/notes">All Projects</Link>
+        </Button>
+      </section>
+
+      <section>
+        <h1 className="mb-4 text-2xl font-bold">Snippets</h1>
+
+        <div className="flex flex-col gap-4 py-4">a snippet</div>
+
+        <Button variant="link" className="px-0" asChild>
+          <Link href="/notes">All Snippets</Link>
+        </Button>
       </section>
     </>
   )

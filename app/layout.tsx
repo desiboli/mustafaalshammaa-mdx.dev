@@ -6,6 +6,7 @@ import { type Metadata } from "next"
 
 import { fontInter } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import Footer from "@/components/Footer"
 import { TailwindIndicator } from "@/components/TailwindIndicator"
 import { ThemeProvider } from "@/components/ThemeProvider"
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main className="container my-20 flex-1">{children}</main>
+            <Footer />
           </div>
           <TailwindIndicator />
         </ThemeProvider>

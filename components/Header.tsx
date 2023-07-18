@@ -31,7 +31,7 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-10 bg-neutral-100/80 py-4 drop-shadow-md backdrop-blur-sm dark:bg-neutral-900/80">
+    <header className="sticky top-0 z-10 bg-background/80 py-4 drop-shadow-sm backdrop-blur-sm">
       <nav className="container flex flex-row-reverse items-center justify-between">
         <ModeToggle />
         <div className="flex flex-row justify-center gap-4 align-middle sm:justify-evenly">
