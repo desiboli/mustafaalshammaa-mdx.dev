@@ -7,6 +7,8 @@ import rehypeHighlight from "rehype-highlight"
 
 import "@/styles/highlight-js/github-dark.css"
 
+import remarkGfm from "remark-gfm"
+
 import { getBlog } from "@/lib/api"
 import { Button, type ButtonProps } from "@/components/ui/button"
 
@@ -38,7 +40,7 @@ export async function generateStaticParams() {
 
 const options = {
   mdxOptions: {
-    remarkPlugins: [],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [rehypeHighlight],
   },
 }
@@ -51,7 +53,7 @@ export default function Post({ params }: any) {
   }
 
   return (
-    <article className="prose prose-sm !prose-invert prose-neutral mx-auto md:prose-base lg:prose-lg">
+    <article className="prose prose-sm prose-neutral w-full dark:prose-invert md:prose-base">
       <h1>{blog.meta.title}</h1>
 
       <MDXRemote

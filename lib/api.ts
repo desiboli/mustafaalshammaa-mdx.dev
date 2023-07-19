@@ -69,9 +69,9 @@ export function getBlog(slug: string): Blog | null {
 }
 
 /*
- * Get all blog posts
+ * Get all notes/blog posts
  */
-export function getPosts() {
+export function getAllNotes() {
   const files = getBlogFiles()
 
   const blogs = files.map((filename) => {

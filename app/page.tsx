@@ -1,12 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { getPosts } from "@/lib/api"
+import { getAllNotes } from "@/lib/api"
 import { Button } from "@/components/ui/button"
-import BlogPreviewList from "@/components/BlogPreviewList"
+import NotePreviewList from "@/components/NotePreviewList"
 
 export default function Home() {
-  const blogs = getPosts()
+  const notes = getAllNotes().slice(0, 5)
 
   return (
     <>
@@ -42,11 +42,7 @@ export default function Home() {
       <section>
         <h1 className="mb-4 text-2xl font-bold">Recent Notes</h1>
 
-        <div className="flex flex-col gap-4 py-4">
-          {blogs.map(
-            (blog, index) => blog && <BlogPreviewList key={index} blog={blog} />
-          )}
-        </div>
+        <NotePreviewList notes={notes} />
 
         <Button variant="link" className="px-0" asChild>
           <Link href="/notes">All Notes</Link>
@@ -56,11 +52,7 @@ export default function Home() {
       <section>
         <h1 className="mb-4 text-2xl font-bold">Recent Projects</h1>
 
-        <div className="flex flex-col gap-4 py-4">
-          {blogs.map(
-            (blog, index) => blog && <BlogPreviewList key={index} blog={blog} />
-          )}
-        </div>
+        <div className="flex flex-col gap-4 py-4">Project 1</div>
 
         <Button variant="link" className="px-0" asChild>
           <Link href="/notes">All Projects</Link>
