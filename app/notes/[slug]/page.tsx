@@ -1,12 +1,10 @@
 import fs from "fs"
 import path from "path"
 import { Suspense } from "react"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import { MDXRemote } from "next-mdx-remote/rsc"
 import rehypeHighlight from "rehype-highlight"
-
-import "@/styles/highlight-js/github-dark.css"
-
 import remarkGfm from "remark-gfm"
 
 import { getBlog } from "@/lib/api"
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: any) {
 }
 
 export async function generateStaticParams() {
-  const files = fs.readdirSync(path.join("blogs"))
+  const files = fs.readdirSync(path.join("notes"))
 
   const paths = files.map((filename) => ({
     slug: filename.replace(".mdx", ""),
@@ -55,12 +53,24 @@ export default function Post({ params }: any) {
   return (
     <article className="prose prose-sm prose-neutral w-full dark:prose-invert md:prose-base">
       <h1>{blog.meta.title}</h1>
+      <h1>{blog.meta.author}</h1>
 
-      <MDXRemote
-        source={blog.content}
-        components={{ ...components }}
-        options={options}
-      />
+      {blog.meta.image && (
+        <Image
+          src={blog.meta.image as string}
+          width="300"
+          height="300"
+          alt="image"
+        />
+      )}
+
+      <Suspense fallback={<>Loading...</>}>
+        <MDXRemote
+          source={blog.content}
+          components={{ ...components }}
+          options={options}
+        />
+      </Suspense>
     </article>
   )
 }

@@ -17,7 +17,7 @@ export interface BlogMeta {
 }
 
 // CONSTANTS
-const blogDir = "blogs"
+const blogDir = "notes"
 
 const getBlogFiles = () =>
   fs.readdirSync(path.join(blogDir)).filter((x) => {
@@ -41,6 +41,7 @@ const cleanMetaFromMatter = (meta: { [key: string]: any }): BlogMeta => {
   return {
     ...meta,
     author: meta.author ?? "Mustafa Alshammaa",
+    image: meta.image ?? "/laptop.jpg",
     date: new Date(meta.date) ?? null,
   }
 }

@@ -11,7 +11,7 @@ const NotePreview = (params: INotePreview) => {
   const note = params.note
 
   return (
-    <Link href={"/blogs/" + note?.slug} passHref key={note?.slug}>
+    <Link href={"/notes/" + note?.slug} passHref key={note?.slug}>
       <div className="flex items-center justify-between gap-2 py-2">
         <div className="flex-1">
           <h3 className="text-lg font-bold">{note?.meta.title}</h3>

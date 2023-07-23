@@ -13,12 +13,12 @@ export default function Navbar() {
       href: "/about",
     },
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
       label: "Notes",
       href: "/notes",
+    },
+    {
+      label: "Projects",
+      href: "/projects",
     },
     {
       label: "Snippets",
