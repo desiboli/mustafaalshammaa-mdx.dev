@@ -37,6 +37,7 @@ export async function generateStaticParams() {
 }
 
 const options = {
+  parseFrontMatter: true,
   mdxOptions: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [rehypeHighlight],
@@ -67,7 +68,7 @@ export default function Post({ params }: any) {
       <Suspense fallback={<>Loading...</>}>
         <MDXRemote
           source={blog.content}
-          components={{ ...components }}
+          components={{ ...components, ...(components || {}) }}
           options={options}
         />
       </Suspense>
